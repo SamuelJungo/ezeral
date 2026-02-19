@@ -7,16 +7,1023 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <!-- CSS Personalizado -->
-      <link rel="stylesheet" href="/style/style.css">
-    <title>EZERAL Comércio e Serviços (SU), LDA</title>
+    <!-- AOS Library para scroll animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- CSS Personalizado Robusto -->
+    <style>
+        /* ===== VARIÁVEIS E RESET ===== */
+        :root {
+            --primary: #0d6efd;
+            --primary-dark: #0b5ed7;
+            --primary-light: #e1f0ff;
+            --secondary: #6c757d;
+            --success: #198754;
+            --info: #0dcaf0;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --white: #ffffff;
+            --black: #000000;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --gray-400: #ced4da;
+            --gray-500: #adb5bd;
+            --gray-600: #6c757d;
+            --gray-700: #495057;
+            --gray-800: #343a40;
+            --gray-900: #212529;
+            
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 5px 15px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.15);
+            --shadow-xl: 0 20px 40px rgba(0,0,0,0.2);
+            
+            --transition-base: all 0.3s ease;
+            --transition-smooth: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            
+            --border-radius-sm: 8px;
+            --border-radius-md: 12px;
+            --border-radius-lg: 20px;
+            --border-radius-xl: 30px;
+            --border-radius-xxl: 50px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            color: var(--gray-800);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== UTILITÁRIOS ===== */
+        .text-gradient {
+            background: linear-gradient(135deg, var(--primary) 0%, #4a6cf7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, #4a6cf7 100%);
+        }
+
+        .bg-gradient-light {
+            background: linear-gradient(135deg, var(--gray-100) 0%, var(--white) 100%);
+        }
+
+        /* ===== NAVBAR MELHORADA ===== */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+            padding: 1rem 0;
+            transition: var(--transition-base);
+        }
+
+        .navbar.scrolled {
+            padding: 0.5rem 0;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow-md);
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+            position: relative;
+        }
+
+        .navbar-brand::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+            border-radius: var(--border-radius-sm);
+            transition: var(--transition-base);
+        }
+
+        .navbar-brand:hover::after {
+            width: 100%;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--gray-700);
+            padding: 0.5rem 1rem !important;
+            margin: 0 0.25rem;
+            border-radius: var(--border-radius-sm);
+            transition: var(--transition-base);
+            position: relative;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition-base);
+        }
+
+        .nav-link:hover::before,
+        .nav-link.active::before {
+            width: 80%;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary);
+        }
+
+        /* ===== HERO SECTION MODERNA ===== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #f5f7ff 0%, #ffffff 100%);
+            overflow: hidden;
+            padding: 120px 0 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 80%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(13,110,253,0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -10%;
+            width: 60%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(74,108,247,0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: pulse 10s ease-in-out infinite reverse;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(13, 110, 253, 0.1);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius-xxl);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(13, 110, 253, 0.2);
+            animation: slideInDown 1s ease-out;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--gray-900);
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .hero-title span {
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-title span::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: rgba(13, 110, 253, 0.2);
+            z-index: -1;
+            border-radius: var(--border-radius-sm);
+        }
+
+        .hero-text {
+            font-size: 1.1rem;
+            color: var(--gray-600);
+            margin-bottom: 2rem;
+            animation: slideInLeft 1s ease-out 0.2s backwards;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-bottom: 2.5rem;
+            animation: slideInLeft 1s ease-out 0.4s backwards;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            animation: slideInLeft 1s ease-out 0.6s backwards;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            border-radius: var(--border-radius-xxl);
+            transition: var(--transition-bounce);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #4a6cf7);
+            border: none;
+            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(13, 110, 253, 0.4);
+        }
+
+        .btn-outline-primary {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline-primary:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(13, 110, 253, 0.2);
+        }
+
+        .hero-image {
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-image img {
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-xl);
+            transition: var(--transition-smooth);
+        }
+
+        .hero-image:hover img {
+            transform: scale(1.02);
+        }
+
+        .floating-card {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 1.5rem;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            animation: float 4s ease-in-out infinite;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .floating-card.top {
+            top: 20px;
+            right: -20px;
+        }
+
+        .floating-card.bottom {
+            bottom: 20px;
+            left: -20px;
+        }
+
+        .floating-card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .floating-card-content h6 {
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            color: var(--gray-900);
+        }
+
+        .floating-card-content p {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+            margin-bottom: 0;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== SECTIONS ===== */
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-subtitle {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--border-radius-xxl);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: 1rem;
+        }
+
+        .section-title.light {
+            color: var(--white);
+        }
+
+        .section-description {
+            font-size: 1.1rem;
+            color: var(--gray-600);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* ===== CARDS SOBRE ===== */
+        .about-card {
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-smooth);
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), #4a6cf7);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition-smooth);
+        }
+
+        .about-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .about-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .about-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary-light), var(--white));
+            border-radius: var(--border-radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            color: var(--primary);
+            transition: var(--transition-bounce);
+        }
+
+        .about-card:hover .about-icon {
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, var(--primary), #4a6cf7);
+            color: var(--white);
+        }
+
+        .about-card h3 {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--gray-900);
+        }
+
+        .about-card p {
+            color: var(--gray-600);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-card .read-more {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition-base);
+        }
+
+        .about-card .read-more:hover {
+            gap: 1rem;
+            color: var(--primary-dark);
+        }
+
+        /* ===== MISSION CARD ===== */
+        .mission-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: var(--border-radius-lg);
+            padding: 3rem;
+            color: var(--white);
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .mission-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius-xxl);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .mission-card h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        .mission-card p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ===== VALORES GRID ===== */
+        .valores-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .valor-item {
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-smooth);
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .valor-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition-smooth);
+        }
+
+        .valor-item:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .valor-item:hover::after {
+            transform: scaleX(1);
+        }
+
+        .valor-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-light), var(--white));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: var(--primary);
+            transition: var(--transition-bounce);
+        }
+
+        .valor-item:hover .valor-icon {
+            transform: scale(1.1) rotate(10deg);
+            background: linear-gradient(135deg, var(--primary), #4a6cf7);
+            color: var(--white);
+        }
+
+        .valor-item h4 {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--gray-900);
+        }
+
+        .valor-item p {
+            color: var(--gray-600);
+            margin-bottom: 0;
+            line-height: 1.6;
+        }
+
+        /* ===== SERVIÇOS CARDS ===== */
+        .servicos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .servico-card {
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-smooth);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .servico-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), #4a6cf7);
+            opacity: 0;
+            transition: var(--transition-smooth);
+            z-index: 1;
+        }
+
+        .servico-card:hover::before {
+            opacity: 1;
+        }
+
+        .servico-card > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .servico-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary-light), var(--white));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            color: var(--primary);
+            transition: var(--transition-bounce);
+        }
+
+        .servico-card:hover .servico-icon {
+            transform: scale(1.1) rotate(360deg);
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        .servico-card h4 {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--gray-900);
+            transition: var(--transition-base);
+        }
+
+        .servico-card p {
+            color: var(--gray-600);
+            margin-bottom: 0;
+            transition: var(--transition-base);
+        }
+
+        .servico-card:hover h4,
+        .servico-card:hover p {
+            color: var(--white);
+        }
+
+        /* ===== CONTATO SECTION ===== */
+        .contact-info-card {
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 1rem;
+            transition: var(--transition-base);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-info-card:hover {
+            transform: translateX(10px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .contact-info-card h5 {
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .contact-form {
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .form-control, .form-select {
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--border-radius-md);
+            transition: var(--transition-base);
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+        }
+
+        .form-floating > .form-control {
+            height: calc(3.5rem + 2px);
+            padding: 1rem 0.75rem;
+        }
+
+        .form-floating > label {
+            padding: 1rem 0.75rem;
+        }
+
+        /* ===== FOOTER MELHORADO ===== */
+        .footer {
+            background: linear-gradient(135deg, var(--gray-900), #1a1a1a);
+            color: var(--white);
+            padding: 60px 0 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), transparent, var(--primary));
+        }
+
+        .footer-widget {
+            margin-bottom: 30px;
+        }
+
+        .footer-widget h4 {
+            color: var(--white);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .footer-widget h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--gray-400);
+            text-decoration: none;
+            transition: var(--transition-base);
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.2rem;
+            transition: var(--transition-bounce);
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-5px) rotate(360deg);
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        /* ===== BACK TO TOP BUTTON ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), #4a6cf7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-base);
+            z-index: 999;
+            border: none;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+            color: var(--white);
+        }
+
+        /* ===== LOADER ===== */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .page-loader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--gray-200);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 768px) {
+            section {
+                padding: 60px 0;
+            }
+            
+            .hero {
+                text-align: center;
+                padding: 100px 0 40px;
+            }
+            
+            .hero-stats {
+                justify-content: center;
+            }
+            
+            .hero-buttons {
+                justify-content: center;
+            }
+            
+            .floating-card {
+                display: none;
+            }
+            
+            .valor-item, .servico-card {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+    <title>EZERAL Comércio e Serviços (SU), LDA - Soluções Integradas</title>
 </head>
 <body>
+    <!-- Page Loader -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="bi bi-arrow-up"></i>
+    </div>
+
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg fixed-top">
+    <nav class="navbar navbar-expand-lg fixed-top" id="mainNavbar">
         <div class="container">
-            <h1 class="navbar-brand">EZERAL</h1>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <a class="navbar-brand" href="#inicio">EZERAL</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -38,360 +1045,375 @@
         </div>
     </nav>
 
+    <!-- Hero Section -->
     <section class="hero" id="inicio">
-    <div class="container">
-        <div class="row align-items-center min-vh-100">
-            <div class="col-lg-6 mb-5 mb-lg-0">
-                <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill mb-4">
-                    <i class="bi bi-stars me-2"></i>EZERAL Comércio e Serviços (SU), LDA
-                </span>
-                <h1 class="display-4 fw-bold mb-4">
-                    Soluções integradas para <span class="text-primary">empresas, projetos e operações</span>
-                </h1>
-                <p class="lead text-secondary mb-4">
-                    Lobito – Benguela | Angola
-                </p>
-                <p class="text-secondary mb-4">
-                    Parceiro estratégico em serviços gerais, outsourcing e fornecimento de produtos para os setores público e privado.
-                </p>
-                
-                <!-- Stats -->
-                <div class="row g-4 mb-5">
-                    <div class="col-4">
-                        <div class="d-flex align-items-center">
-                            <i class="bi bi-building text-primary fs-2 me-3"></i>
-                            <div>
-                                <h3 class="fw-bold mb-0">100+</h3>
-                                <p class="text-secondary mb-0">Clientes</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="d-flex align-items-center">
-                            <i class="bi bi-briefcase text-primary fs-2 me-3"></i>
-                            <div>
-                                <h3 class="fw-bold mb-0">200+</h3>
-                                <p class="text-secondary mb-0">Projetos</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="d-flex align-items-center">
-                            <i class="bi bi-people text-primary fs-2 me-3"></i>
-                            <div>
-                                <h3 class="fw-bold mb-0">50+</h3>
-                                <p class="text-secondary mb-0">Profissionais</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- CTA Buttons -->
-                <div class="d-flex flex-wrap gap-3">
-                    <a href="#contato" class="btn btn-primary btn-lg px-5 py-3">
-                        Solicitar Orçamento
-                        <i class="bi bi-arrow-right ms-2"></i>
-                    </a>
-                    <a href="#sobre" class="btn btn-outline-primary btn-lg px-5 py-3">
-                        Conhecer Mais
-                    </a>
-                </div>
-            </div>
-            
-            <div class="col-lg-6">
-                <div class="position-relative">
-                    <!-- Imagem principal -->
-                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
-                         alt="Equipe EZERAL" 
-                         class="img-fluid rounded-4 shadow-lg">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right" data-aos-duration="1000">
+                    <span class="hero-badge">
+                        <i class="bi bi-stars me-2"></i>EZERAL Comércio e Serviços (SU), LDA
+                    </span>
+                    <h1 class="hero-title">
+                        Soluções integradas para <span>empresas, projetos e operações</span>
+                    </h1>
+                    <p class="hero-text">
+                        Lobito – Benguela | Angola
+                    </p>
+                    <p class="hero-text">
+                        Parceiro estratégico em serviços gerais, outsourcing e fornecimento de produtos para os setores público e privado.
+                    </p>
                     
-                    <!-- Card flutuante 1 -->
-                    <div class="position-absolute bottom-0 start-0 bg-white p-3 rounded-4 shadow-lg m-4 d-none d-lg-block" style="max-width: 200px;">
-                        <div class="d-flex align-items-center">
-                            <div class="bg-success bg-opacity-10 p-3 rounded-3 me-3">
-                                <i class="bi bi-check-circle-fill text-success fs-4"></i>
-                            </div>
-                            <div>
-                                <h6 class="fw-bold mb-1">Projetos</h6>
-                                <p class="text-success mb-0">100% concluídos</p>
-                            </div>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">100+</div>
+                            <div class="stat-label">Clientes</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">200+</div>
+                            <div class="stat-label">Projetos</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">Profissionais</div>
                         </div>
                     </div>
                     
-                    <!-- Card flutuante 2 -->
-                    <div class="position-absolute top-0 end-0 bg-white p-3 rounded-4 shadow-lg m-4 d-none d-lg-block">
-                        <div class="d-flex align-items-center">
-                            <div class="bg-primary bg-opacity-10 p-3 rounded-3 me-3">
-                                <i class="bi bi-people-fill text-primary fs-4"></i>
+                    <div class="hero-buttons">
+                        <a href="#contato" class="btn btn-primary">
+                            Solicitar Orçamento
+                            <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+                        <a href="#sobre" class="btn btn-outline-primary">
+                            Conhecer Mais
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1000">
+                    <div class="hero-image">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" 
+                             alt="Equipe EZERAL" 
+                             class="img-fluid">
+                        
+                        <div class="floating-card top">
+                            <div class="floating-card-icon bg-success bg-opacity-10">
+                                <i class="bi bi-check-circle-fill text-success"></i>
                             </div>
-                            <div>
-                                <h6 class="fw-bold mb-1">Equipa</h6>
-                                <p class="text-primary mb-0">Qualificada</p>
+                            <div class="floating-card-content">
+                                <h6>Projetos</h6>
+                                <p>100% concluídos</p>
+                            </div>
+                        </div>
+                        
+                        <div class="floating-card bottom">
+                            <div class="floating-card-icon bg-primary bg-opacity-10">
+                                <i class="bi bi-people-fill text-primary"></i>
+                            </div>
+                            <div class="floating-card-content">
+                                <h6>Equipa</h6>
+                                <p>Qualificada</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-    <!-- Sobre Section com Missão, Visão e Valores -->
+    <!-- Sobre Section -->
     <section class="sobre" id="sobre">
         <div class="container">
-            <h2 class="section-title">Perfil Corporativo</h2>
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-subtitle">Sobre Nós</span>
+                <h2 class="section-title">Perfil Corporativo</h2>
+                <p class="section-description">Conheça quem somos, nossa missão, visão e valores que nos guiam</p>
+            </div>
             
-            <!-- Quem Somos -->
-            <div class="row mb-5">
-                <div class="col-lg-12">
-                    <div class="bg-white p-5 rounded-4 shadow-sm">
-                        <h3 class="mb-4 text-primary">Quem Somos</h3>
-                        <p class="quem-somos-texto mb-4">
+            <div class="row g-4 mb-5">
+                <div class="col-lg-12" data-aos="fade-up">
+                    <div class="about-card">
+                        <div class="about-icon">
+                            <i class="bi bi-building"></i>
+                        </div>
+                        <h3>Quem Somos</h3>
+                        <p>
                             A EZERAL Comércio e Serviços, SU, LDA é uma empresa angolana focada na prestação de soluções integradas em serviços gerais, outsourcing e fornecimento de produtos, atuando de forma estratégica para apoiar empresas, instituições e projetos públicos e privados.
                         </p>
-                        <p class="quem-somos-texto mb-4">
+                        <p>
                             Com sede em Lobito, província de Benguela, a EZERAL nasce da necessidade do mercado por parceiros confiáveis, eficientes e orientados para resultados, capazes de responder com rapidez, qualidade e profissionalismo às exigências operacionais dos seus clientes.
                         </p>
-                        <p class="quem-somos-texto mb-4">
+                        <p>
                             Atuamos em diferentes segmentos, oferecendo serviços técnicos especializados, gestão de equipas, manutenção, limpeza técnica e facilities, bem como a comercialização de produtos industriais, automotivos e de construção, sempre com foco em soluções práticas, seguras e sustentáveis.
                         </p>
-                        <p class="quem-somos-texto">
+                        <p>
                             A nossa equipa é composta por profissionais qualificados, com experiência nos setores industrial, logístico, comercial e de serviços, comprometidos com elevados padrões de ética, segurança, cumprimento de prazos e satisfação do cliente.
                         </p>
+                        <a href="#contato" class="read-more">
+                            Fale Conosco <i class="bi bi-arrow-right"></i>
+                        </a>
                     </div>
                 </div>
             </div>
             
-            <!-- Missão com Imagem -->
             <div class="row align-items-center g-5 mb-5">
-                <div class="col-lg-6">
-                    <div class="card-missao text-center text-lg-start p-5 h-100">
-                        <span class="badge bg-white bg-opacity-25 text-white px-3 py-2 rounded-pill mb-4">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="mission-card">
+                        <span class="mission-badge">
                             <i class="bi bi-bullseye me-2"></i>NOSSA MISSÃO
                         </span>
-                        <h3 class="display-5 fw-bold text-white mb-4">Criar respostas eficientes e consistentes</h3>
-                        <p class="lead text-white-50 mb-4">
+                        <h2>Criar respostas eficientes e consistentes</h2>
+                        <p>
                             A nossa missão é criar respostas eficientes e consistentes para as necessidades operacionais dos seus clientes, assegurando elevados padrões de desempenho, organização e confiabilidade em cada atividade desenvolvida.
                         </p>
-                        <p class="text-white-50">
+                        <p>
                             Orientamos a nossa atuação para a excelência na execução, a gestão responsável de recursos, o respeito pelas normas de segurança e a entrega de resultados concretos, através de equipas preparadas e metodologias ajustadas à realidade de cada projeto.
                         </p>
                     </div>
                 </div>
                 
-                <div class="col-lg-6">
+                <div class="col-lg-6" data-aos="fade-left">
                     <div class="position-relative">
-                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" 
                              alt="Equipa EZERAL em reunião" 
-                             class="img-fluid rounded-4 shadow-lg w-100">
+                             class="img-fluid rounded-4 shadow-lg">
                     </div>
                 </div>
             </div>
             
-            <!-- Visão -->
             <div class="row mb-5">
-                <div class="col-lg-8 mx-auto">
-                    <div class="bg-white p-5 rounded-4 shadow-sm text-center">
-                        <i class="bi bi-eye-fill text-primary display-1 mb-4"></i>
-                        <h3 class="mb-4">Nossa Visão</h3>
-                        <p class="lead">
+                <div class="col-lg-8 mx-auto" data-aos="fade-up">
+                    <div class="about-card text-center">
+                        <div class="about-icon mx-auto">
+                            <i class="bi bi-eye-fill"></i>
+                        </div>
+                        <h3>Nossa Visão</h3>
+                        <p>
                             Ser reconhecida como uma referência nacional pela capacidade de responder com agilidade, consistência e inovação às exigências do mercado, consolidando a EZERAL como uma organização de confiança para projetos de diferentes dimensões e complexidades.
                         </p>
-                        <p class="text-muted mt-4">
+                        <p>
                             Aspiramos construir uma empresa sólida, estruturada e orientada para o futuro, capaz de evoluir continuamente, incorporar boas práticas, investir no desenvolvimento das suas pessoas e acompanhar a transformação dos setores onde atua.
                         </p>
                     </div>
                 </div>
             </div>
             
-            <!-- Valores -->
-            <h3 class="text-center mb-4">Nossos Valores</h3>
+            <h3 class="text-center mb-4" data-aos="fade-up">Nossos Valores</h3>
             <div class="valores-grid">
-                <div class="card-valor">
-                    <i class="bi bi-shield-shaded"></i>
+                <div class="valor-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="valor-icon">
+                        <i class="bi bi-shield-shaded"></i>
+                    </div>
                     <h4>Ética e Integridade</h4>
-                    <p class="text-muted">Atuamos com honestidade, transparência e responsabilidade em todas as relações, assegurando confiança mútua com clientes, parceiros e colaboradores.</p>
+                    <p>Atuamos com honestidade, transparência e responsabilidade em todas as relações, assegurando confiança mútua com clientes, parceiros e colaboradores.</p>
                 </div>
                 
-                <div class="card-valor">
-                    <i class="bi bi-graph-up"></i>
+                <div class="valor-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="valor-icon">
+                        <i class="bi bi-graph-up"></i>
+                    </div>
                     <h4>Compromisso com Resultados</h4>
-                    <p class="text-muted">Assumimos cada atividade com seriedade e foco no desempenho, garantindo entregas consistentes e alinhadas às expectativas estabelecidas.</p>
+                    <p>Assumimos cada atividade com seriedade e foco no desempenho, garantindo entregas consistentes e alinhadas às expectativas estabelecidas.</p>
                 </div>
                 
-                <div class="card-valor">
-                    <i class="bi bi-award"></i>
+                <div class="valor-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="valor-icon">
+                        <i class="bi bi-award"></i>
+                    </div>
                     <h4>Profissionalismo</h4>
-                    <p class="text-muted">Mantemos elevados padrões de conduta, organização e qualidade, valorizando o conhecimento técnico e a preparação contínua das nossas equipas.</p>
+                    <p>Mantemos elevados padrões de conduta, organização e qualidade, valorizando o conhecimento técnico e a preparação contínua das nossas equipas.</p>
                 </div>
                 
-                <div class="card-valor">
-                    <i class="bi bi-shield-check"></i>
+                <div class="valor-item" data-aos="fade-up" data-aos-delay="400">
+                    <div class="valor-icon">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
                     <h4>Segurança e Responsabilidade</h4>
-                    <p class="text-muted">Respeitamos normas, procedimentos e boas práticas, promovendo ambientes de trabalho seguros e decisões responsáveis.</p>
+                    <p>Respeitamos normas, procedimentos e boas práticas, promovendo ambientes de trabalho seguros e decisões responsáveis.</p>
                 </div>
                 
-                <div class="card-valor">
-                    <i class="bi bi-people"></i>
+                <div class="valor-item" data-aos="fade-up" data-aos-delay="500">
+                    <div class="valor-icon">
+                        <i class="bi bi-people"></i>
+                    </div>
                     <h4>Valorização das Pessoas</h4>
-                    <p class="text-muted">Acreditamos que o crescimento sustentável passa pelo desenvolvimento humano, incentivo ao mérito, cooperação e respeito.</p>
+                    <p>Acreditamos que o crescimento sustentável passa pelo desenvolvimento humano, incentivo ao mérito, cooperação e respeito.</p>
                 </div>
                 
-                <div class="card-valor">
-                    <i class="bi bi-arrow-repeat"></i>
+                <div class="valor-item" data-aos="fade-up" data-aos-delay="600">
+                    <div class="valor-icon">
+                        <i class="bi bi-arrow-repeat"></i>
+                    </div>
                     <h4>Evolução Contínua</h4>
-                    <p class="text-muted">Buscamos melhoria constante, inovação nos processos e adaptação às mudanças do mercado, garantindo competitividade e longevidade.</p>
+                    <p>Buscamos melhoria constante, inovação nos processos e adaptação às mudanças do mercado, garantindo competitividade e longevidade.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Serviços Section -->
-    <section class="servico" id="servicos">
+    <section class="servico" id="servicos" style="background: var(--gray-100);">
         <div class="container">
-            <h2 class="section-title">Nossas Áreas de Atuação</h2>
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-subtitle">Nossos Serviços</span>
+                <h2 class="section-title">Áreas de Atuação</h2>
+                <p class="section-description">Soluções completas e personalizadas para atender às suas necessidades</p>
+            </div>
             
             <!-- Serviços Gerais -->
-            <h3 class="mb-4">Serviços Gerais</h3>
-            <div class="row g-4 mb-5">
-                <div class="col-md-4">
-                    <div class="atuacao-card">
-                        <i class="bi bi-brush fs-1 text-primary mb-3"></i>
-                        <h4>Limpeza Técnica e Facilities</h4>
-                        <p class="text-muted">Gestão de facilities com foco em ambientes profissionais e industriais</p>
+            <h3 class="mb-4" data-aos="fade-up">Serviços Gerais</h3>
+            <div class="servicos-grid">
+                <div class="servico-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="servico-icon">
+                        <i class="bi bi-brush"></i>
                     </div>
+                    <h4>Limpeza Técnica e Facilities</h4>
+                    <p>Gestão de facilities com foco em ambientes profissionais e industriais</p>
                 </div>
-                <div class="col-md-4">
-                    <div class="atuacao-card">
-                        <i class="bi bi-flower1 fs-1 text-primary mb-3"></i>
-                        <h4>Jardinagem</h4>
-                        <p class="text-muted">Manutenção de espaços exteriores, promovendo conservação e estética</p>
+                
+                <div class="servico-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="servico-icon">
+                        <i class="bi bi-flower1"></i>
                     </div>
+                    <h4>Jardinagem</h4>
+                    <p>Manutenção de espaços exteriores, promovendo conservação e estética</p>
                 </div>
-                <div class="col-md-4">
-                    <div class="atuacao-card">
-                        <i class="bi bi-bug fs-1 text-primary mb-3"></i>
-                        <h4>Controlo de Pragas</h4>
-                        <p class="text-muted">Desinfestação seguindo normas de higiene e segurança</p>
+                
+                <div class="servico-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="servico-icon">
+                        <i class="bi bi-bug"></i>
                     </div>
+                    <h4>Controlo de Pragas</h4>
+                    <p>Desinfestação seguindo normas de higiene e segurança</p>
                 </div>
-                <div class="col-md-4">
-                    <div class="atuacao-card">
-                        <i class="bi bi-tools fs-1 text-primary mb-3"></i>
-                        <h4>Reparações</h4>
-                        <p class="text-muted">Reparações de pequena escala, incluindo canalização e eletricidade</p>
+                
+                <div class="servico-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="servico-icon">
+                        <i class="bi bi-tools"></i>
                     </div>
+                    <h4>Reparações</h4>
+                    <p>Reparações de pequena escala, incluindo canalização e eletricidade</p>
                 </div>
-                <div class="col-md-4">
-                    <div class="atuacao-card">
-                        <i class="bi bi-thermometer-snow fs-1 text-primary mb-3"></i>
-                        <h4>Sistemas de Ar Condicionado</h4>
-                        <p class="text-muted">Montagem, assistência e manutenção de sistemas de ar condicionado</p>
+                
+                <div class="servico-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="servico-icon">
+                        <i class="bi bi-thermometer-snow"></i>
                     </div>
+                    <h4>Sistemas de Ar Condicionado</h4>
+                    <p>Montagem, assistência e manutenção de sistemas de ar condicionado</p>
                 </div>
-                <div class="col-md-4">
-                    <div class="atuacao-card">
-                        <i class="bi bi-house-gear fs-1 text-primary mb-3"></i>
-                        <h4>Montagens e Projetos</h4>
-                        <p class="text-muted">Execução de montagens e pequenos projetos com acompanhamento técnico</p>
+                
+                <div class="servico-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="servico-icon">
+                        <i class="bi bi-house-gear"></i>
                     </div>
+                    <h4>Montagens e Projetos</h4>
+                    <p>Execução de montagens e pequenos projetos com acompanhamento técnico</p>
                 </div>
             </div>
             
             <!-- Outsourcing -->
-            <h3 class="mb-4">Outsourcing de Profissionais</h3>
-            <div class="row g-4 mb-5">
-                <div class="col-md-3">
-                    <div class="servico-card">
+            <h3 class="mb-4" data-aos="fade-up">Outsourcing de Profissionais</h3>
+            <div class="servicos-grid">
+                <div class="servico-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="servico-icon">
                         <i class="bi bi-box-seam"></i>
-                        <h5>Fiéis de Armazém</h5>
                     </div>
+                    <h4>Fiéis de Armazém</h4>
                 </div>
-                <div class="col-md-3">
-                    <div class="servico-card">
+                
+                <div class="servico-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="servico-icon">
                         <i class="bi bi-truck"></i>
-                        <h5>Carga/Descarga</h5>
                     </div>
+                    <h4>Carga/Descarga</h4>
                 </div>
-                <div class="col-md-3">
-                    <div class="servico-card">
+                
+                <div class="servico-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="servico-icon">
                         <i class="bi bi-bricks"></i>
-                        <h5>Alvenaria</h5>
                     </div>
+                    <h4>Alvenaria</h4>
                 </div>
-                <div class="col-md-3">
-                    <div class="servico-card">
+                
+                <div class="servico-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="servico-icon">
                         <i class="bi bi-wrench"></i>
-                        <h5>Soldadura Industrial</h5>
                     </div>
+                    <h4>Soldadura Industrial</h4>
                 </div>
-                <div class="col-md-3">
-                    <div class="servico-card">
+                
+                <div class="servico-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="servico-icon">
                         <i class="bi bi-cup-hot"></i>
-                        <h5>Catering</h5>
                     </div>
+                    <h4>Catering</h4>
                 </div>
-                <div class="col-md-3">
-                    <div class="servico-card">
+                
+                <div class="servico-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="servico-icon">
                         <i class="bi bi-person-workspace"></i>
-                        <h5>Secretárias</h5>
                     </div>
+                    <h4>Secretárias</h4>
                 </div>
-                <div class="col-md-3">
-                    <div class="servico-card">
+                
+                <div class="servico-card" data-aos="fade-up" data-aos-delay="700">
+                    <div class="servico-icon">
                         <i class="bi bi-graph-up"></i>
-                        <h5>Gestores Comerciais</h5>
                     </div>
+                    <h4>Gestores Comerciais</h4>
                 </div>
-                <div class="col-md-3">
-                    <div class="servico-card">
+                
+                <div class="servico-card" data-aos="fade-up" data-aos-delay="800">
+                    <div class="servico-icon">
                         <i class="bi bi-calculator"></i>
-                        <h5>Contabilistas</h5>
                     </div>
+                    <h4>Contabilistas</h4>
                 </div>
             </div>
             
             <!-- Área Comercial -->
-            <h3 class="mb-4">Área Comercial - Vendas</h3>
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="servico-card">
+            <h3 class="mb-4" data-aos="fade-up">Área Comercial - Vendas</h3>
+            <div class="servicos-grid">
+                <div class="servico-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="servico-icon">
                         <i class="bi bi-car-front"></i>
-                        <h4>Automotivo</h4>
-                        <p>Kits de reparação, lubrificantes, pneus e baterias</p>
                     </div>
+                    <h4>Automotivo</h4>
+                    <p>Kits de reparação, lubrificantes, pneus e baterias</p>
                 </div>
-                <div class="col-md-4">
-                    <div class="servico-card">
+                
+                <div class="servico-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="servico-icon">
                         <i class="bi bi-gear-wide-connected"></i>
-                        <h4>Industrial</h4>
-                        <p>Peças e componentes industriais</p>
                     </div>
+                    <h4>Industrial</h4>
+                    <p>Peças e componentes industriais</p>
                 </div>
-                <div class="col-md-4">
-                    <div class="servico-card">
+                
+                <div class="servico-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="servico-icon">
                         <i class="bi bi-building"></i>
-                        <h4>Construção</h4>
-                        <p>Materiais de construção e equipamentos</p>
                     </div>
+                    <h4>Construção</h4>
+                    <p>Materiais de construção e equipamentos</p>
                 </div>
             </div>
             
             <!-- Diferencial -->
             <div class="row mt-5">
-                <div class="col-lg-10 mx-auto">
-                    <div class="bg-primary text-white p-5 rounded-4">
-                        <h3 class="mb-4 text-center">Nosso Diferencial</h3>
+                <div class="col-lg-10 mx-auto" data-aos="fade-up">
+                    <div class="mission-card text-center">
+                        <h3 class="mb-4">Nosso Diferencial</h3>
                         <div class="row">
                             <div class="col-md-6">
-                                <ul class="list-unstyled">
+                                <ul class="list-unstyled text-start">
                                     <li class="mb-3"><i class="bi bi-check-circle-fill me-2"></i> Oferta de múltiplas soluções através de um único parceiro</li>
                                     <li class="mb-3"><i class="bi bi-check-circle-fill me-2"></i> Equipas estruturadas, capacitadas e bem coordenadas</li>
                                     <li class="mb-3"><i class="bi bi-check-circle-fill me-2"></i> Capacidade de adaptação às necessidades específicas</li>
                                 </ul>
                             </div>
                             <div class="col-md-6">
-                                <ul class="list-unstyled">
+                                <ul class="list-unstyled text-start">
                                     <li class="mb-3"><i class="bi bi-check-circle-fill me-2"></i> Rigor no cumprimento de prazos e padrões de qualidade</li>
                                     <li class="mb-3"><i class="bi bi-check-circle-fill me-2"></i> Atendimento próximo e profissional</li>
                                     <li class="mb-3"><i class="bi bi-check-circle-fill me-2"></i> Compromisso com o futuro e inovação gradual</li>
@@ -407,12 +1429,17 @@
     <!-- Contato Section -->
     <section class="contato" id="contato">
         <div class="container">
-            <h2 class="section-title">Informações de Contacto</h2>
-            <div class="row">
-                <div class="col-lg-6 mb-4">
-                    <div class="contato-form">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-subtitle">Contato</span>
+                <h2 class="section-title">Informações de Contacto</h2>
+                <p class="section-description">Estamos prontos para atender às suas necessidades</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="contact-form">
                         <h4 class="mb-4">Envie-nos uma mensagem</h4>
-                        <form>
+                        <form id="contactForm">
                             <div class="mb-3">
                                 <label for="nome" class="form-label">Nome</label>
                                 <input type="text" class="form-control" id="nome" required>
@@ -429,38 +1456,41 @@
                                 <label for="mensagem" class="form-label">Mensagem</label>
                                 <textarea class="form-control" id="mensagem" rows="4" required></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100">Enviar Mensagem</button>
+                            <button type="submit" class="btn btn-primary w-100">
+                                Enviar Mensagem
+                                <i class="bi bi-send ms-2"></i>
+                            </button>
                         </form>
                     </div>
                 </div>
                 
-                <div class="col-lg-6">
-                    <div class="bg-primary text-white p-5 rounded-4 h-100">
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="mission-card h-100">
                         <h3 class="mb-4">Contactos</h3>
                         
-                        <div class="contact-info bg-white text-dark mb-4">
-                            <h5 class="text-primary mb-3"><i class="bi bi-geo-alt me-2"></i>Endereço</h5>
+                        <div class="contact-info-card">
+                            <h5><i class="bi bi-geo-alt me-2"></i>Endereço</h5>
                             <p class="mb-0">Avenida da Independência, Restinga<br>Prédio Sol, Andar 1, AP n.º 2<br>Lobito, Benguela – Angola</p>
                         </div>
                         
-                        <div class="contact-info bg-white text-dark mb-4">
-                            <h5 class="text-primary mb-3"><i class="bi bi-telephone me-2"></i>Contactos Telefónicos</h5>
+                        <div class="contact-info-card">
+                            <h5><i class="bi bi-telephone me-2"></i>Contactos Telefónicos</h5>
                             <p class="mb-1">+244 921 111 928</p>
                             <p class="mb-0">+244 939 239 002</p>
                         </div>
                         
-                        <div class="contact-info bg-white text-dark">
-                            <h5 class="text-primary mb-3"><i class="bi bi-envelope me-2"></i>E-mail</h5>
+                        <div class="contact-info-card">
+                            <h5><i class="bi bi-envelope me-2"></i>E-mail</h5>
                             <p class="mb-0">ezeral2023@hotmail.com</p>
                         </div>
                         
                         <div class="mt-5">
                             <h4 class="text-white mb-3">Redes Sociais</h4>
-                            <div>
-                                <a href="#" class="text-white me-3 fs-3"><i class="bi bi-facebook"></i></a>
-                                <a href="#" class="text-white me-3 fs-3"><i class="bi bi-instagram"></i></a>
-                                <a href="#" class="text-white me-3 fs-3"><i class="bi bi-linkedin"></i></a>
-                                <a href="#" class="text-white me-3 fs-3"><i class="bi bi-whatsapp"></i></a>
+                            <div class="social-links">
+                                <a href="#" class="social-link"><i class="bi bi-facebook"></i></a>
+                                <a href="#" class="social-link"><i class="bi bi-instagram"></i></a>
+                                <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
+                                <a href="#" class="social-link"><i class="bi bi-whatsapp"></i></a>
                             </div>
                         </div>
                     </div>
@@ -469,11 +1499,13 @@
             
             <!-- Compromisso com o Futuro -->
             <div class="row mt-5">
-                <div class="col-lg-10 mx-auto">
-                    <div class="bg-white p-5 rounded-4 shadow-sm text-center">
-                        <i class="bi bi-rocket-takeoff text-primary display-1 mb-4"></i>
+                <div class="col-lg-10 mx-auto" data-aos="fade-up">
+                    <div class="about-card text-center">
+                        <div class="about-icon mx-auto">
+                            <i class="bi bi-rocket-takeoff"></i>
+                        </div>
                         <h3 class="mb-4">Compromisso com o Futuro</h3>
-                        <p class="lead">
+                        <p>
                             A EZERAL assume um compromisso contínuo com a evolução, a responsabilidade e a criação de impacto positivo nas atividades que desenvolve e nos contextos onde atua.
                         </p>
                         <p>
@@ -489,43 +1521,105 @@
     <footer class="footer">
         <div class="container">
             <div class="row">
-                <div class="col-md-4 mb-4">
-                    <h3 class="text-white mb-3">EZERAL</h3>
-                    <p class="text-white-50">EZERAL Comércio e Serviços (SU), LDA - Soluções integradas para empresas, projetos e operações.</p>
-                    <p class="text-white-50 mb-0">Lobito – Benguela | Angola</p>
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-widget">
+                        <h4>EZERAL</h4>
+                        <p>EZERAL Comércio e Serviços (SU), LDA - Soluções integradas para empresas, projetos e operações.</p>
+                        <p>Lobito – Benguela | Angola</p>
+                    </div>
                 </div>
                 
-                <div class="col-md-4 mb-4">
-                    <h4 class="text-white mb-3">Links Rápidos</h4>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#inicio" class="text-white-50 text-decoration-none">Início</a></li>
-                        <li class="mb-2"><a href="#sobre" class="text-white-50 text-decoration-none">Sobre Nós</a></li>
-                        <li class="mb-2"><a href="#servicos" class="text-white-50 text-decoration-none">Serviços</a></li>
-                        <li class="mb-2"><a href="#contato" class="text-white-50 text-decoration-none">Contacto</a></li>
-                    </ul>
+                <div class="col-lg-2 col-md-6">
+                    <div class="footer-widget">
+                        <h4>Links Rápidos</h4>
+                        <ul class="footer-links">
+                            <li><a href="#inicio">Início</a></li>
+                            <li><a href="#sobre">Sobre Nós</a></li>
+                            <li><a href="#servicos">Serviços</a></li>
+                            <li><a href="#contato">Contacto</a></li>
+                        </ul>
+                    </div>
                 </div>
                 
-                <div class="col-md-4 mb-4">
-                    <h4 class="text-white mb-3">Contacto Rápido</h4>
-                    <p class="text-white-50 mb-2"><i class="bi bi-telephone me-2"></i> +244 921 111 928</p>
-                    <p class="text-white-50 mb-2"><i class="bi bi-envelope me-2"></i> ezeral2023@hotmail.com</p>
-                    <p class="text-white-50"><i class="bi bi-geo-alt me-2"></i> Lobito, Benguela</p>
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-widget">
+                        <h4>Contacto Rápido</h4>
+                        <ul class="footer-links">
+                            <li><i class="bi bi-telephone me-2"></i> +244 921 111 928</li>
+                            <li><i class="bi bi-envelope me-2"></i> ezeral2023@hotmail.com</li>
+                            <li><i class="bi bi-geo-alt me-2"></i> Lobito, Benguela</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-widget">
+                        <h4>Redes Sociais</h4>
+                        <p>Siga-nos nas redes sociais</p>
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="bi bi-facebook"></i></a>
+                            <a href="#" class="social-link"><i class="bi bi-instagram"></i></a>
+                            <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="bi bi-whatsapp"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <hr class="bg-white">
-            
-            <div class="text-center mt-4">
-                <p class="mb-0 text-white-50">&copy; 2024 EZERAL Comércio e Serviços (SU), LDA. Todos os direitos reservados.</p>
+            <div class="footer-bottom">
+                <p class="mb-0">&copy; 2024 EZERAL Comércio e Serviços (SU), LDA. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Bootstrap JS -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
-    <!-- Smooth Scroll -->
     <script>
+        // Inicializar AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Page Loader
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('pageLoader').classList.add('fade-out');
+            }, 500);
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('mainNavbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Back to Top Button
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 500) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -535,6 +1629,58 @@
                         behavior: 'smooth',
                         block: 'start'
                     });
+                }
+            });
+        });
+
+        // Form Submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulação de envio
+            const button = this.querySelector('button[type="submit"]');
+            const originalText = button.innerHTML;
+            
+            button.innerHTML = 'Enviando... <i class="bi bi-hourglass-split ms-2"></i>';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                button.innerHTML = 'Mensagem Enviada! <i class="bi bi-check-circle ms-2"></i>';
+                button.classList.remove('btn-primary');
+                button.classList.add('btn-success');
+                
+                // Reset form
+                this.reset();
+                
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                    button.classList.remove('btn-success');
+                    button.classList.add('btn-primary');
+                }, 3000);
+            }, 2000);
+        });
+
+        // Active Navigation Highlight
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
                 }
             });
         });
